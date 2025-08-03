@@ -131,18 +131,18 @@ public class Main {
         System.out.println("present1 = " + present1);
 
         //группировки. Для этого создадим объект
-        Map<String, Set<String>> group = Stream.of(
-                new Person("Ivan","Moscow"),
-                new Person("Ivan","Sochi"),
-                new Person("Alex","Vladivostok"),
-                new Person("Denis","Novgorod"),
-                new Person("Kseniia","Dmitrov"),
-                new Person("Kirill","Petrozavodsk"),
-                new Person("Ivan","Moscow"),
-                new Person("Mariia","Sochi"),
-                new Person("Olga","Moscow"),
-                new Person("Nastya","Moscow")
-                ).collect(Collectors.groupingBy(Person::getCity, Collectors.mapping(Person::getName, Collectors.toSet())));
+        Map<String, Double> group = Stream.of(
+                new Person("Ivan","Moscow", 100),
+                new Person("Ivan","Sochi",80),
+                new Person("Alex","Vladivostok",90),
+                new Person("Denis","Novgorod",78),
+                new Person("Kseniia","Dmitrov",65),
+                new Person("Kirill","Petrozavodsk",56),
+                new Person("Ivan","Moscow",89),
+                new Person("Mariia","Sochi",36),
+                new Person("Olga","Moscow",150),
+                new Person("Nastya","Moscow",94)
+                ).collect(Collectors.groupingBy(Person::getCity, Collectors.averagingInt(Person::getIncome)));
         System.out.println("group = " + group); //ключ город, группируем по нему
 
     }
@@ -167,10 +167,12 @@ public class Main {
     static class Person {
         private String name;
         private String city;
+        private Integer income;
 
-        public Person(String name, String city) {
+        public Person(String name, String city, Integer income) {
             this.name = name;
             this.city = city;
+            this.income = income;
         }
 
         public String getCity() {
@@ -181,6 +183,10 @@ public class Main {
             return name;
         }
 
+        public Integer getIncome() {
+            return income;
+        }
+
         @Override
         public String toString() {
             return "Person{" +
@@ -188,6 +194,9 @@ public class Main {
                     ", city='" + city + '\'' +
                     '}';
         }
+
+//        public static int getIncome(Object o) {
+//        }
     }
 }
 
