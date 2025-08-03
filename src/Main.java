@@ -1,10 +1,8 @@
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -88,6 +86,27 @@ public class Main {
                 .limit(5) //ограничиваемся в 5 чисел
                 .toList(); //собираем элементы в лист
         System.out.println("randomInts = " + randomInts);
+//испльуем коллектор
+        Set<String> stringSet = List.of("one", "two", "three","two","one")
+                .stream()
+                .map(String::toUpperCase)
+                .collect(Collectors.toSet());
+        System.out.println("stringSet = " + stringSet);
+
+        //в порядке возрастания букв
+        Set<String> stringSet1 = List.of("one", "two", "three","two","one")
+                .stream()
+                .map(String::toUpperCase)
+                .collect(TreeSet::new, TreeSet::add, TreeSet::addAll);
+        System.out.println("stringSet1 = " + stringSet1);
+
+        //кол-во чётных элементов
+        long count = Stream.of(arr)
+                .map(Integer::valueOf)
+                .filter(i -> i%2 == 0)
+                .count();
+        System.out.println("count = " + count);
+
     }
 
 
