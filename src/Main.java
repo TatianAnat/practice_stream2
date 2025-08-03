@@ -107,6 +107,13 @@ public class Main {
                 .count();
         System.out.println("count = " + count);
 
+        //пишем самостоятельный метод нахождения суммы чётны чисел
+        Integer sum = Stream.of(arr)
+                .map(Integer::valueOf)
+                .filter(i -> i%2 == 0)
+                .reduce(0,(acc,elem) -> acc + elem);
+        System.out.println("sum = " + sum);
+
     }
 
 
