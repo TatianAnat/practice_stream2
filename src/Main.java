@@ -129,6 +129,19 @@ public class Main {
               //.allMatch(i -> i % 2 == 0); //если все элементы чётные, то будет try
         System.out.println("present1 = " + present1);
 
+        //группировки. Для этого создадим объект
+        Map<String, List<Person>> group = Stream.of(
+                new Person("Ivan","Moscow"),
+                new Person("Ivan","Sochi"),
+                new Person("Alex","Vladivostok"),
+                new Person("Denis","Novgorod"),
+                new Person("Kseniia","Dmitrov"),
+                new Person("Kirill","Petrozavodsk"),
+                new Person("Mariia","Sochi"),
+                new Person("Olga","Moscow"),
+                new Person("Nastya","Moscow")
+                ).collect(Collectors.groupingBy(Person::getCity));
+        System.out.println("group = " + group); //ключ город, группируем по нему
 
     }
 
@@ -146,6 +159,28 @@ public class Main {
         @Override
         public boolean test(Integer integer) {
             return integer - 9 > 0;
+        }
+    }
+
+    static class Person {
+        private String name;
+        private String city;
+
+        public Person(String name, String city) {
+            this.name = name;
+            this.city = city;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        @Override
+        public String toString() {
+            return "Person{" +
+                    "name='" + name + '\'' +
+                    ", city='" + city + '\'' +
+                    '}';
         }
     }
 }
