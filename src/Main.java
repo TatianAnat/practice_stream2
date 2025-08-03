@@ -2,6 +2,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -130,17 +131,18 @@ public class Main {
         System.out.println("present1 = " + present1);
 
         //группировки. Для этого создадим объект
-        Map<String, List<Person>> group = Stream.of(
+        Map<String, Set<String>> group = Stream.of(
                 new Person("Ivan","Moscow"),
                 new Person("Ivan","Sochi"),
                 new Person("Alex","Vladivostok"),
                 new Person("Denis","Novgorod"),
                 new Person("Kseniia","Dmitrov"),
                 new Person("Kirill","Petrozavodsk"),
+                new Person("Ivan","Moscow"),
                 new Person("Mariia","Sochi"),
                 new Person("Olga","Moscow"),
                 new Person("Nastya","Moscow")
-                ).collect(Collectors.groupingBy(Person::getCity));
+                ).collect(Collectors.groupingBy(Person::getCity, Collectors.mapping(Person::getName, Collectors.toSet())));
         System.out.println("group = " + group); //ключ город, группируем по нему
 
     }
@@ -173,6 +175,10 @@ public class Main {
 
         public String getCity() {
             return city;
+        }
+
+        public String getName() {
+            return name;
         }
 
         @Override
