@@ -76,7 +76,7 @@ public class Main {
                 .toList();
         System.out.println("List from builder = " + list);
 
-        List<Integer> powers2 = Stream.iterate(1,i -> i*2)
+        List<Integer> powers2 = Stream.iterate(1, i -> i * 2)
                 .takeWhile(i -> i < 10000) //ограничитель
                 .toList();
         System.out.println("power2 = " + powers2);
@@ -87,14 +87,14 @@ public class Main {
                 .toList(); //собираем элементы в лист
         System.out.println("randomInts = " + randomInts);
 //испльуем коллектор
-        Set<String> stringSet = List.of("one", "two", "three","two","one")
+        Set<String> stringSet = List.of("one", "two", "three", "two", "one")
                 .stream()
                 .map(String::toUpperCase)
                 .collect(Collectors.toSet());
         System.out.println("stringSet = " + stringSet);
 
         //в порядке возрастания букв
-        Set<String> stringSet1 = List.of("one", "two", "three","two","one")
+        Set<String> stringSet1 = List.of("one", "two", "three", "two", "one")
                 .stream()
                 .map(String::toUpperCase)
                 .collect(TreeSet::new, TreeSet::add, TreeSet::addAll);
@@ -103,16 +103,32 @@ public class Main {
         //кол-во чётных элементов
         long count = Stream.of(arr)
                 .map(Integer::valueOf)
-                .filter(i -> i%2 == 0)
+                .filter(i -> i % 2 == 0)
                 .count();
         System.out.println("count = " + count);
 
         //пишем самостоятельный метод нахождения суммы чётны чисел
         Integer sum = Stream.of(arr)
                 .map(Integer::valueOf)
-                .filter(i -> i%2 == 0)
-                .reduce(0,(acc,elem) -> acc + elem);
+                .filter(i -> i % 2 == 0)
+                .reduce(0, (acc, elem) -> acc + elem);
         System.out.println("sum = " + sum);
+
+        //напишем проверку на существование элемента
+        boolean present = Stream.of(arr)
+                .map(Integer::valueOf)
+                .filter(i -> i % 2 == 0)
+                .findAny()
+                .isPresent();
+        System.out.println("present = " + present);
+
+        //можно сделать программу выше короче
+        boolean present1 = Stream.of(arr)
+                .map(Integer::valueOf)
+                .anyMatch(i -> i % 2 == 0); //если отя бы один чётный элемент будет, то будет try
+              //.allMatch(i -> i % 2 == 0); //если все элементы чётные, то будет try
+        System.out.println("present1 = " + present1);
+
 
     }
 
@@ -132,5 +148,5 @@ public class Main {
             return integer - 9 > 0;
         }
     }
-    }
+}
 
